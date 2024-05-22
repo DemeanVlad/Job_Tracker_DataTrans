@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js" defer></script>
+    <title>Login - Job Application Tracker</title>
+</head>
+<body>
+    <div id="login-component" class="login-component">
+        <div id="left" class="left">
+            <div class="overlay">
+                <h1>Login Section</h1>
+                <p>Welcome to our job application tracker! Log in below to start managing your applications. Create an account if you don't have one yet.</p>                    
+            </div>
+        </div>
+        <div class="right">
+            <h5>Login</h5>
+            <p>Don't have an account? <a href="#">Create Your Account</a> it takes less than a minute</p>
+            <div class="inputs">
+                <input v-model="user" type="text" placeholder="Username">
+                <input v-model="pass" type="password" placeholder="Password">
+            </div>
+            <button @click="login">Login</button>
+            <h1>{{ message }}</h1>
+        </div>
+    </div>
+</body>
+</html>

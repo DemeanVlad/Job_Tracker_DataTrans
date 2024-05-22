@@ -1,0 +1,15 @@
+{
+    "port": 8080,
+    "server": {
+      "baseDir": "./client",
+      "routes": {
+        "/libs": "./client/libs",
+        "/node_modules": "./node_modules"
+      }
+    },
+    "files": ["./client/**/*.{html,htm,css,js}"],
+    "watchOptions": {
+      "ignored": "node_modules"
+    }
+  }
+  

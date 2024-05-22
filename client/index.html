@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Application Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="app" class="container">
+    <header>
+      <h1>Job Application Tracker</h1>
+    </header>
+
+    <section class="application-form">
+      <h2>Add New Application</h2>
+      <form @submit.prevent="createApplication">
+        <input v-model="newApplication.company" type="text" placeholder="Company" required>
+        <input v-model="newApplication.position" type="text" placeholder="Position" required>
+        <input v-model="newApplication.date" type="date" required>
+        <textarea v-model="newApplication.notes" placeholder="Notes" rows="4"></textarea>
+        <button type="submit">Add Application</button>
+      </form>
+    </section>
+
+    <section class="application-list">
+      <h2>Job Applications</h2>
+      <ul>
+        <li v-for="application in applications" :key="application.id">
+          <h3>{{ application.company }} - {{ application.position }}</h3>
+          <p>{{ application.date }}</p>
+          <p>{{ application.notes }}</p>
+          <button @click="editApplication(application)">Edit</button>
+          <button @click="deleteApplication(application.id)">Delete</button>
+        </li>
+      </ul>
+    </section>
+
+    <section v-if="editingApplication" class="edit-form">
+      <h2>Edit Application</h2>
+      <form @submit.prevent="updateApplication">
+        <input v-model="editingApplication.company" type="text" placeholder="Company" required>
+        <input v-model="editingApplication.position" type="text" placeholder="Position" required>
+        <input v-model="editingApplication.date" type="date" required>
+        <textarea v-model="editingApplication.notes" placeholder="Notes" rows="4"></textarea>
+        <button type="submit">Update Application</button>
+        <button type="button" @click="cancelEdit">Cancel</button>
+      </form>
+    </section>
+
+    <!-- Chat Component -->
+    <div class="chat-app">
+      <h3 id="client-id"></h3>
+      <div class="messages">
+        <p v-for="msg in messages" :class="{'user': msg.id === socket.id, 'server': msg.id !== socket.id}">
+          {{ msg.id }}: {{ msg.message }}
+        </p>
+      </div>
+      <div class="input-area">
+        <input class="message" type="text" v-model="message" placeholder="Write a message" />
+        <button class="send-button" @click="sendMessage">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client/dist/socket.io.min.js"></script>
+  <script src="chat.js">
